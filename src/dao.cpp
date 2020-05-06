@@ -15,6 +15,14 @@ ACTION dao::setoracle(name oracle)
    _configs.set(cfg, _self);
 }
 
+ACTION dao::setsource(name source)
+{
+   require_auth(get_self());
+   configs cfg = _configs.get();
+   cfg.price_source = source;
+   _configs.set(cfg, _self);
+}
+
 ACTION dao::setperiod(uint64_t period)
 {
    require_auth(get_self());
@@ -44,6 +52,14 @@ ACTION dao::setratio(uint64_t ratio)
    require_auth(get_self());
    configs cfg = _configs.get();
    cfg.minimum_collateral_ratio = ratio;
+   _configs.set(cfg, _self);
+}
+
+ACTION dao::setmindep(uint64_t mindep)
+{
+   require_auth(get_self());
+   configs cfg = _configs.get();
+   cfg.minimum_deposit = mindep;
    _configs.set(cfg, _self);
 }
 

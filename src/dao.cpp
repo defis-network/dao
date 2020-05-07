@@ -15,14 +15,6 @@ ACTION dao::setoracle(name oracle)
    _configs.set(cfg, _self);
 }
 
-ACTION dao::setsource(name source)
-{
-   require_auth(get_self());
-   configs cfg = _configs.get();
-   cfg.price_source = source;
-   _configs.set(cfg, _self);
-}
-
 ACTION dao::setperiod(uint64_t period)
 {
    require_auth(get_self());

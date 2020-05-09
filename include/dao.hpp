@@ -16,9 +16,10 @@ public:
       {
          _configs.get_or_create(_self,
                                 configs{
-                                    .price_oracle = name("jinoracle111"),
                                     .vote_proxy = name("jinbank.bp"),
-                                    .price_period = 3600,
+                                    .price_oracle = name("jinoraclesv1"),
+                                    .market_id = 0,
+                                    .price_period = 300,
                                     .price_lower_bound = 20000,
                                     .price_upper_bound = 50000,
                                     .minimum_collateral_ratio = 300,
@@ -29,6 +30,7 @@ public:
 
    ACTION setproxy(name proxy);
    ACTION setoracle(name oracle);
+   ACTION setmid(uint64_t mid);
    ACTION setperiod(uint64_t period);
    ACTION setlower(uint64_t lower);
    ACTION setupper(uint64_t upper);
@@ -38,6 +40,7 @@ public:
 
    using setproxy_action = action_wrapper<"setproxy"_n, &dao::setproxy>;
    using setoracle_action = action_wrapper<"setoracle"_n, &dao::setoracle>;
+   using setmid_action = action_wrapper<"setmid"_n, &dao::setmid>;
    using setperiod_action = action_wrapper<"setperiod"_n, &dao::setperiod>;
    using setlower_action = action_wrapper<"setlower"_n, &dao::setlower>;
    using setupper_action = action_wrapper<"setupper"_n, &dao::setupper>;
@@ -50,6 +53,7 @@ private:
    {
       name vote_proxy;
       name price_oracle;
+      uint64_t market_id;
       uint64_t price_period;
       uint64_t price_lower_bound;
       uint64_t price_upper_bound;
@@ -57,7 +61,7 @@ private:
       uint64_t minimum_deposit;
       uint64_t mint_fee;
 
-      EOSLIB_SERIALIZE(configs, (vote_proxy)(price_oracle)(price_period)(price_lower_bound)(price_upper_bound)(minimum_collateral_ratio)(minimum_deposit)(mint_fee))
+      EOSLIB_SERIALIZE(configs, (vote_proxy)(price_oracle)(market_id)(price_period)(price_lower_bound)(price_upper_bound)(minimum_collateral_ratio)(minimum_deposit)(mint_fee))
    };
 
    typedef singleton<"configs"_n, configs> configs_index;

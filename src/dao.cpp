@@ -15,6 +15,14 @@ ACTION dao::setoracle(name oracle)
    _configs.set(cfg, _self);
 }
 
+ACTION dao::setmid(uint64_t mid)
+{
+   require_auth(get_self());
+   configs cfg = _configs.get();
+   cfg.market_id = mid;
+   _configs.set(cfg, _self);
+}
+
 ACTION dao::setperiod(uint64_t period)
 {
    require_auth(get_self());
